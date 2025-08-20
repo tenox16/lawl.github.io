@@ -49,6 +49,7 @@ let categoryMistakes = { "Lexique": 0, "Règlement": 0, "Mise en situation": 0 }
 function startWhitelist() {
   document.getElementById("intro").style.display = "none";
   document.getElementById("quiz").style.display = "block";
+  document.getElementById("end").style.display = "none";
 
   selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 11);
   current = 0;
@@ -78,20 +79,17 @@ function nextQuestion(correct) {
     mistakes++;
     const cat = selectedQuestions[current].category;
     categoryMistakes[cat]++;
-    if (mistakes >= 2) { // échec après 2 erreurs
-      endQuiz(true);
-      return;
-    }
   }
   current++;
   showQuestion();
 }
 
 // --- Fin de la WL ---
-function endQuiz(failedByMistakes = false) {
+function endQuiz() {
   document.getElementById("quiz").style.display = "none";
   document.getElementById("end").style.display = "block";
 
+  const failedByMistakes = mistakes >= 2;
   if (failedByMistakes || score < 8) {
     document.getElementById("finalMessage").innerHTML =
       `Fin de la session WL <br>
