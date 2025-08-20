@@ -42,6 +42,7 @@ const allQuestions = [
 let selectedQuestions = [];
 let current = 0;
 let score = 0;
+let mistakes = 0; // compteur d'erreurs
 
 // --- Démarrer la WL ---
 function startWhitelist() {
@@ -67,24 +68,32 @@ function showQuestion() {
 
 // --- Passer à la suivante ---
 function nextQuestion(correct) {
-  if (correct) score++;
+  if (correct) {
+    score++;
+  } else {
+    mistakes++;
+    if (mistakes >= 3) {
+      endQuiz(true); // échec automatique après 3 erreurs
+      return;
+    }
+  }
   current++;
   showQuestion();
 }
 
 // --- Fin de la WL ---
-function endQuiz() {
+function endQuiz(failedByMistakes = false) {
   document.getElementById("quiz").style.display = "none";
   document.getElementById("end").style.display = "block";
 
   const resultText = `Résultat : ${score} / ${selectedQuestions.length}`;
   document.getElementById("finalScore").innerText = resultText;
 
-  if (score >= 8) {
-    document.getElementById("finalMessage").innerText = "✅ Félicitations, WL validée !";
-    document.getElementById("finalMessage").style.color = "lightgreen";
-  } else {
+  if (failedByMistakes || score < 8) {
     document.getElementById("finalMessage").innerText = "❌ WL échouée. Réessaie plus tard.";
     document.getElementById("finalMessage").style.color = "red";
+  } else {
+    document.getElementById("finalMessage").innerText = "✅ Félicitations, WL validée !";
+    document.getElementById("finalMessage").style.color = "lightgreen";
   }
 }
