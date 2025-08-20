@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whitelist GTA RP - Urban Pulse</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Whitelist RP</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Quiz Whitelist GTA RP - Urban Pulse</h1>
-        <div id="quiz-container"></div>
-        <button id="submit-btn">Terminer</button>
-        <div id="result"></div>
+  <div id="app">
+    <!-- Page Intro -->
+    <div id="intro">
+      <h2>Avant de commencer la Whitelist, posez ces questions :</h2>
+      <ul>
+        <li>Nom, Prénom et Âge IRL ?</li>
+        <li>Ancienneté sur FiveM (nombre d'heures) ?</li>
+        <li>Serveurs précédents fréquentés ?</li>
+        <li>Background et ambitions RP ?</li>
+      </ul>
+      <button onclick="startWhitelist()">Le joueur a répondu à ces questions<br>Démarrer la WL</button>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Questions -->
+    <div id="quiz" style="display:none;">
+      <h3 id="questionNumber"></h3>
+      <p id="questionText"></p>
+      <p><strong>Réponse attendue :</strong> <span id="expectedAnswer"></span></p>
+      <button onclick="nextQuestion(true)">Bonne réponse</button>
+      <button onclick="nextQuestion(false)">Mauvaise réponse</button>
+    </div>
+
+    <!-- Fin -->
+    <div id="end" style="display:none;">
+      <h2>Whitelist terminée ✅</h2>
+      <p>Merci d’avoir répondu à toutes les questions.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
